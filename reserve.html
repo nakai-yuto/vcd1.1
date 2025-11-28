@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アクセス・ご予約 | Trattoria Sole</title>
+    <style>
+        /* CSSはindex.htmlと共通化 */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        :root {
+            --color-primary: #A30000; /* 深い赤、イタリアの情熱 */
+            --color-secondary: #FFD700; /* ゴールド、高級感と太陽（Sole） */
+            --color-text: #333333;
+            --color-background: #F8F4E1; /* クリーム色、温かい雰囲気 */
+            --font-main: 'Noto Sans JP', sans-serif;
+            --font-heading: 'Cormorant Garamond', serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        /* 共通レイアウト */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ヘッダー/ナビゲーション */
+        header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            transition: color 0.3s, background-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav ul li a:hover {
+            color: var(--color-secondary);
+            border-bottom: 2px solid var(--color-secondary);
+        }
+
+        /* ページ見出し */
+        h1.page-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--color-primary);
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h1.page-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--color-secondary);
+            margin: 10px auto 0;
+        }
+
+        /* セクション見出し */
+        h2 {
+            font-family: var(--font-main);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 5px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        /* 店舗情報テーブル */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-table th {
+            background-color: #f5f5f5;
+            width: 30%;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        
+        /* 予約ボタン */
+        .reservation-box {
+            background-color: white;
+            border: 2px dashed var(--color-primary);
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+        
+        .reservation-box p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .reserve-button {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .reserve-button:hover {
+            background-color: #7a0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 地図のプレースホルダー */
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        /* フッター */
+        footer {
+            background-color: var(--color-text);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        footer a {
+            color: var(--color-secondary);
+            text-decoration: none;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 5px 0;
+            }
+            h1.page-title {
+                font-size: 2.5rem;
+            }
+            .info-table th, .info-table td {
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+            .info-table th {
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+            .info-table td {
+                padding-top: 0;
+            }
+            .info-table tr:first-child th {
+                border-top: none;
+            }
+            .info-table tr {
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Trattoria Sole</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ホーム</a></li>
+                    <li><a href="menu.html">メニュー</a></li>
+                    <li><a href="index.html#features-section">こだわり</a></li>
+                    <li><a href="access.html">アクセス・ご予約</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Access & Reservation</h1>
+
+        <section id="reservation">
+            <h2>ご予約について</h2>
+            <div class="reservation-box">
+                <p>お席のご予約は、お電話またはネット予約にて承っております。</p>
+                <p>当日のご予約はお電話にてお願いいたします。</p>
+                <p style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin: 20px 0;">TEL: 03-XXXX-XXXX</p>
+                <a href="javascript:void(0)" class="reserve-button">ネット予約はこちら</a>
+            </div>
+        </section>
+
+        <section id="access">
+            <h2>店舗情報・アクセス</h2>
+            <table class="info-table">
+                <tr>
+                    <th>店名</th>
+                    <td>Trattoria Sole (トラットリア・ソーレ)</td>
+                </tr>
+                <tr>
+                    <th>所在地</th>
+                    <td>東京都架空区イタリアン通り1-2-3 (架空の住所です)</td>
+                </tr>
+                <tr>
+                    <th>営業時間</th>
+                    <td>【ディナー】17:00〜23:00 (L.O. 22:00)</td>
+                </tr>
+                <tr>
+                    <th>定休日</th>
+                    <td>毎週火曜日、第3水曜日</td>
+                </tr>
+                <tr>
+                    <th>席数</th>
+                    <td>30席 (カウンター席、テーブル席)</td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td>全席禁煙、クレジットカード可 (VISA, Master)</td>
+                </tr>
+            </table>
+            
+            <h3>アクセス</h3>
+            <p>JR山手線 〇〇駅 東口より 徒歩3分</p>
+            <div class="map-placeholder">
+                [Google Mapの埋め込みイメージ]
+            </div>
+        </section>
+        
+        <p style="text-align: center; margin-top: 40px;"><a href="index.html" style="color: var(--color-primary); text-decoration: none; border-bottom: 1px dashed var(--color-primary); padding: 5px;">&larr; トップページに戻る</a></p>
+
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Trattoria Sole. All rights reserved.</p>
+            <p>Trattoria Sole</p>
+            <p>TEL: 03-XXXX-XXXX</p>
+        </div>
+    </footer>
+</body>
+</html>

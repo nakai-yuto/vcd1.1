@@ -1,0 +1,9 @@
+<!-- シンプルなロゴ（店名とワインボトルのモチーフ） -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="64" viewBox="0 0 240 64">
+<rect width="240" height="64" fill="none"/>
+<g transform="translate(6,8)">
+<path d="M12 0c-2 8-4 6-6 12s5 18 18 18 4-6 4-12S14 0 12 0z" fill="#C94F1D"/>
+<text x="36" y="26" font-family="Georgia, 'Noto Serif JP', serif" font-size="18" fill="#3b3b3b">Wine Bar</text>
+<text x="36" y="46" font-family="Georgia, 'Noto Serif JP', serif" font-size="14" fill="#C94F1D">ChibaTech</text>
+</g>
+</svg>
